@@ -35,6 +35,7 @@ const MORSE_TABLE = {
   "---..": "8",
   "----.": "9",
   "-----": "0",
+  "yyyyy": " ",
 };
 
 function decode(expr) {
@@ -44,7 +45,7 @@ function decode(expr) {
   for (let i = 0; i < expr.length / size; i++) {
     mas1[i] = expr.slice(i * size, i * size + size);
   }
-  console.log(mas1);
+
   let mas2 = mas1.map((a, b) => {
     let mas3 = [];
     for (let i = 0; i < a.length / 2; i++) {
@@ -52,8 +53,24 @@ function decode(expr) {
     }
     return mas3;
   });
-  console.log(mas2);
-  // console.log(mas2);
+
+  let mas5 = mas2.map((c, d) => {
+    let mas4 = [];
+    for (let i = 0; i < c.length; i++) {
+      if (c[i] === "10") {
+        mas4.push(".");
+      } else if (c[i] === "11") {
+        mas4.push("-");
+      }else if (c[i] == "**") {
+        mas4.push("y");
+      }
+    }
+
+    return mas4;
+  });
+  let mas6 = mas5.map((e, f) => e.join(''));
+  let mas7 = mas6.map((g) => MORSE_TABLE[g] ).join('');
+    return mas7;
 }
 module.exports = {
   decode,
